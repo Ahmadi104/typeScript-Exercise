@@ -1,5 +1,5 @@
 "use strict";
-// function greeting(name: string): string {
+// function greeting(name: string lastname?:string): string {
 //   return `Hello My Friend ${name}`;
 // }
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -15,6 +15,9 @@ function getTicketInfo(id) {
     }
 }
 console.log(getTicketInfo("ticket-2"));
+// const getName =()=> void {
+// return nothing
+// }
 // console.log(greeting("Ezatullah"));
 // Array
 // function averageScore(rating: number[]) {
@@ -61,3 +64,11 @@ function collectSupportData(id, resolved) {
 function processMail(mail) {
     return "From ".concat(mail.from, "\n  To: ").concat(mail.to, "\n  Subject: ").concat(mail.urgent ? "[Urgent]" : "").concat(mail.subject, "\n body: ").concat(mail.body, "\n  ");
 }
+// Set : store unique value
+var mySet = new Set();
+mySet.add(2);
+mySet.add(23);
+//Map: A Map is a built in object that stores key value pairs
+var myMap = new Map();
+myMap.set("first", 1);
+myMap.set("second", 2);

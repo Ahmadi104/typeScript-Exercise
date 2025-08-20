@@ -14,8 +14,15 @@ function getTicketInfo(id: string | number) {
   }
 }
 console.log(getTicketInfo("ticket-2"));
+
+// const getName =()=> void {
+// return nothing
+// }
+
 // console.log(greeting("Ezatullah"));
+
 // Array
+const myScore: number[] = [13, 12, 22, 32];
 // function averageScore(rating: number[]) {
 //   if (rating.length === 0) return 0;
 //   return (
@@ -72,3 +79,27 @@ function processMail(mail: Mali) {
  body: ${mail.body}
   `;
 }
+
+//Extra proporties: it means that are not defined in the type or interface.
+
+//Optional object properties:
+type Supperhero = {
+  name: string;
+  age: number;
+  email?: string;
+};
+
+//Discriminted Union : is a union of object types that share a common property
+type Shape =
+  | { kind: "circle"; radius: number }
+  | { kind: "square"; side: number };
+
+// Set : store unique value
+const mySet = new Set<number>();
+mySet.add(2);
+mySet.add(23);
+
+//Map: A Map is a built in object that stores key value pairs
+const myMap = new Map<string, number>();
+myMap.set("first", 1);
+myMap.set("second", 2);
