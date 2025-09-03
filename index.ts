@@ -1,3 +1,6 @@
+const age: number = 100;
+const name: string = "ezatullah";
+const isActive: boolean = true;
 // function greeting(name: string lastname?:string): string {
 //   return `Hello My Friend ${name}`;
 // }
@@ -23,6 +26,9 @@ console.log(getTicketInfo("ticket-2"));
 
 // Array
 const myScore: number[] = [13, 12, 22, 32];
+const genericList: Array<string> = ["a", "b", "c"];
+let tuple: [string, number, boolean] = ["hello", 100, false];
+
 // function averageScore(rating: number[]) {
 //   if (rating.length === 0) return 0;
 //   return (
@@ -103,3 +109,11 @@ mySet.add(23);
 const myMap = new Map<string, number>();
 myMap.set("first", 1);
 myMap.set("second", 2);
+
+//Narrowing
+function getPadding(pading: number | string, input: string): string {
+  if (typeof pading === "number") {
+    return " ".repeat(pading) + input;
+  }
+  return pading + input;
+}
