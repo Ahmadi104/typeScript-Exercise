@@ -29,6 +29,11 @@ const myScore: number[] = [13, 12, 22, 32];
 const genericList: Array<string> = ["a", "b", "c"];
 let tuple: [string, number, boolean] = ["hello", 100, false];
 
+let names: string[] = ["Ali", "Ahmad"];
+for (const item of names) {
+  console.log(item);
+}
+
 // function averageScore(rating: number[]) {
 //   if (rating.length === 0) return 0;
 //   return (
@@ -53,6 +58,64 @@ let tuple: [string, number, boolean] = ["hello", 100, false];
 // console.log(
 
 // );
+
+// Tuple
+// descriping a tuple is like an array just with specifice element type
+type Point = [number, number];
+function getDistanceFromOrigin([x, y]: Point): number {
+  return Math.sqrt(x * x + y * y);
+}
+const p1: Point = [3, 4];
+console.log(getDistanceFromOrigin(p1));
+
+// Enum : is special type that are constant uder a name
+enum Direction {
+  Up,
+  down,
+  left,
+  right,
+}
+console.log(Direction.Up); //output= 0
+enum Roles {
+  Admin = "ADMIM",
+  User = "USER",
+  Guest = "GUESt",
+}
+enum Status {
+  OK = 200,
+  NotFound = 404,
+}
+function showStatus(status: Status) {
+  if (status === Status.OK) {
+    return "Request was successful";
+  } else if (status === Status.NotFound) {
+    return "Request Not found";
+  } else {
+    return "Unknown status code";
+  }
+}
+console.log(showStatus(Status.OK));
+
+// Any
+// let data: any = 13;
+// data = "hello";
+// data = true;
+let data: number | string;
+function printData(data: string | number) {
+  if (typeof data === "string") {
+    console.log("string value", data.toUpperCase());
+  } else {
+    console.log("Number value", data * 2);
+  }
+}
+
+//Void
+function getArray(arr: any[]): void {
+  arr.forEach((item, index) => {
+    console.log(`index:${index}-value:${item}`);
+  });
+}
+console.log(getArray([13, 14, 12, 15]));
 
 // Rest parameter
 function formatLabels(...labels: string[]) {
@@ -85,6 +148,22 @@ function processMail(mail: Mali) {
  body: ${mail.body}
   `;
 }
+type Car = {
+  type: string;
+  modle: string;
+  year: number;
+};
+//const cars: Car = { type: "bmw", modle: "newmodel", year: 2018 };
+const cars: { type: string; modle: string; year: number } = {
+  type: "corlla",
+  modle: "new",
+  year: 2002,
+};
+
+//Type Assertions
+let someValue: unknown = "this is a string";
+const strLength: number = (someValue as string).length;
+console.log(strLength);
 
 //Extra proporties: it means that are not defined in the type or interface.
 
@@ -117,3 +196,66 @@ function getPadding(pading: number | string, input: string): string {
   }
   return pading + input;
 }
+
+//Type Predicate
+type Fish = { swin: () => void };
+type Bird = { fly: () => void };
+function isFish(pet: Fish | Bird): pet is Fish {
+  return (pet as Fish).swin !== undefined;
+}
+// Discriminated Unions : in every type exist a common property
+type Shapes =
+  | { kind: "circle"; radius: number }
+  | { kind: "square"; side: number }
+  | { kind: "rectangle"; width: number; height: number };
+function area(shape: Shapes): number {
+  switch (shape.kind) {
+    case "circle":
+      return Math.PI * shape.radius ** 2;
+    case "square":
+      return shape.side * shape.side;
+    case "rectangle":
+      return shape.width * shape.height;
+
+    default:
+      return 0;
+  }
+}
+
+// In Opreator Narrowing
+type Dog = { bark: () => void };
+type Cat = { meow: () => void };
+function speak(animal: Dog | Cat) {
+  if ("bark" in animal) {
+    animal.bark();
+  } else {
+    animal.meow();
+  }
+}
+// Extende Interface
+interface Person {
+  name: string;
+  age: number;
+  country?: string;
+}
+interface Employee extends Person {
+  empolyeeId: number;
+}
+const emp: Employee = {
+  name: "ali",
+  age: 23,
+  empolyeeId: 110,
+};
+console.log(emp);
+
+// Keyof type operator
+type PersonKeys = keyof Person;
+const person = { name: "Mahdi", age: 25, country: "Aghanistan" };
+type PersonType = typeof person;
+//Indexes Access Type
+type nametype = Person["name"];
+
+//Conditional Type
+type isNumber<T> = T extends number ? "yes Number" : "no Number";
+type Test1 = isNumber<12>; //yes Number
+type Test2 = isNumber<"1">; // no Number
