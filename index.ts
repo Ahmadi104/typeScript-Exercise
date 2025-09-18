@@ -76,6 +76,7 @@ enum Direction {
   right,
 }
 console.log(Direction.Up); //output= 0
+// string Enum
 enum Roles {
   Admin = "ADMIM",
   User = "USER",
@@ -197,6 +198,24 @@ function getPadding(pading: number | string, input: string): string {
   return pading + input;
 }
 
+//narrowing example
+type RegularCustomer = {
+  plan: "regular";
+  tickets: number;
+  aboveLimit: boolean;
+};
+type PremiumCustomer = {
+  plan: "premium";
+  tickets: number;
+};
+type Customer = RegularCustomer | PremiumCustomer;
+function openTicket(customer: Customer): number {
+  if (customer.plan === "regular" && customer.aboveLimit) {
+    return -1;
+  }
+  return customer.tickets + 1;
+}
+
 //Type Predicate
 type Fish = { swin: () => void };
 type Bird = { fly: () => void };
@@ -232,6 +251,22 @@ function speak(animal: Dog | Cat) {
     animal.meow();
   }
 }
+
+//Interface :It defines the shape of an object
+
+export interface UserFeedback {
+  rating: number;
+  comment: string;
+}
+export interface SupportSession {
+  id: number;
+  startedAt: number;
+  endedAt: number;
+  feedback: UserFeedback;
+}
+function getSessionDuration(session: SupportSession) {
+  return session.endedAt - session.startedAt;
+}
 // Extende Interface
 interface Person {
   name: string;
@@ -259,3 +294,53 @@ type nametype = Person["name"];
 type isNumber<T> = T extends number ? "yes Number" : "no Number";
 type Test1 = isNumber<12>; //yes Number
 type Test2 = isNumber<"1">; // no Number
+
+// Classes in Typescript
+
+ class Person {
+  firstName:string
+  lastName:string
+  //#id:number //private member
+  constructor(firstName:string,lastName:string){
+    this.firstName=firstName,
+    this.lastName=lastName,
+    
+  } 
+
+  getFullName(){
+    return`${this.firstName} ${this.lastName}`
+  }
+ }
+
+
+ // Utility Type : Partial, Required, Readonly,Omit,pick
+ interface ContactInfo {
+  phonNumber?:string,
+  email?:string
+ }
+ export function addBillingInfo (info: Required <ContactInfo> ){
+      return `billing Info ${info.email} ${info.phonNumber}`
+ }
+
+ // Generices: is a feature in TypeScript that allows us to write reusable 
+ //  and type-safe code without having to specify the data types in advance.
+ function getFirst<Element>(arr:Element[]):Element |undefined{
+  return arr[0]
+ }
+ const arrValue =getFirst([1,3,4,5])
+
+ function pair<A,B>(a:A[],b:B[]):[A, B] []{
+  const array:[A, B][] = [];
+  for(let i = 0; i < a.length && i < b.length ; i++){
+    if(a[i] !==undefined && b[i] !== undefined){
+
+     // array.push([a[i], b[i]]);
+    }
+  }
+return array
+ }
+
+ pair([2,3,4],['a','b','c'])
+ pair(['ab','cd'],['bd','dc'])
+
+ 
